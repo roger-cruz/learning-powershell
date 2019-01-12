@@ -5,11 +5,11 @@ $service=$args[0]
 
 # Process must not run between min and max secs
 $doNotRunMin = 60
-$doNotRunMax = 300
+$doNotRunMax = 120
 
 # Process must run between min and max secs
-$runMin = 120
-$runMax = 360
+$runMin = 60
+$runMax = 120
 
 $iteration = 1
 function StopSleepStart
@@ -25,7 +25,6 @@ function StopSleepStart
 	$sleep = Get-Random -Minimum $runMin -Maximum $runMax
 	Write-Host "Letting it run for $sleep seconds before stopping the service"
 	Start-Sleep -Seconds $sleep
-	$iteration++
 }
 
 function Main()
@@ -39,6 +38,7 @@ function Main()
 		while ($true)
 		{
 			StopSleepStart
+			$iteration = $iteration + 1
 		}
 	}
 }
